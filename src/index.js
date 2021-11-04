@@ -17,7 +17,7 @@ function checksExistsUserAccount(request, response, next) {
   const user = users.find(user => user.username === username);
 
   if (!user) {
-    return response.status(400).json({ error: "user not found" });
+    return response.status(400).json({ error: `user with name ${username} not found` });
   }
 
   request.username = username
@@ -49,7 +49,8 @@ app.post('/users', (request, response) => {
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
-  const { username } = request.body
+  const { username } = request
+
   const user = users.find(user => user.username === username);
 
   if (!user) {
@@ -61,8 +62,9 @@ app.get('/todos', checksExistsUserAccount, (request, response) => {
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
-  //const { username } = request.headers
-  const { title, deadline, username } = request.body
+  const { username } = request
+
+  const { title, deadline } = request.body
   const todo = {
     id: uuidv4(),
     title,
@@ -86,8 +88,8 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
-  //const { username } = request.headers
-  const { username } = request.body
+
+  const { username } = request
 
   const user = users.find(user => user.username === username);
 
@@ -106,8 +108,8 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 });
 
 app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
-  //const { username } = request.headers
-  const { username } = request.body
+
+  const { username } = request
 
   const user = users.find(user => user.username === username);
 
@@ -125,8 +127,8 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  //const { username } = request.headers
-  const { username } = request.body
+
+  const { username } = request
 
   const user = users.find(user => user.username === username);
 

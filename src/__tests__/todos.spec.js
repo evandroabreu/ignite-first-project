@@ -26,6 +26,8 @@ describe('Todos', () => {
       .get('/todos')
       .set('username', userResponse.body.username);
 
+    console.log(todoResponse.body);
+
     expect(response.body).toEqual(
       expect.arrayContaining([
         todoResponse.body
